@@ -5,7 +5,7 @@ import android.os.Bundle;
 import pl.edu.agh.sr.facecursor.R;
 import pl.edu.agh.sr.facecursor.ui.BaseView;
 
-public class MainActivity extends BaseView {
+public class MainActivity extends BaseView implements IMainView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
