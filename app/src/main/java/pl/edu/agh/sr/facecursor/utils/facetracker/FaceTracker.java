@@ -22,7 +22,7 @@ public class FaceTracker extends Tracker<Face> {
 
     @Override
     public void onUpdate(Detector.Detections<Face> detections, Face face) {
-        super.onUpdate(detections, face);
+        mFaceUpdateHandler.onFaceUpdate(face);
     }
 
     @Override

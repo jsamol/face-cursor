@@ -12,6 +12,7 @@ public class CameraSourceView extends ViewGroup {
         super(context, attrs);
     }
 
+    //TODO: Implement the view to display image from the camera
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
 
