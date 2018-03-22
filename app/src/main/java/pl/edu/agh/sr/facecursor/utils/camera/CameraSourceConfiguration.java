@@ -6,7 +6,7 @@ public class CameraSourceConfiguration {
     public static final int PREVIEW_HEIGHT = 640;
     public static final int PREVIEW_WIDTH = 480;
 
-    public static final int FACING = CameraSource.CAMERA_FACING_BACK;
+    public static final int FACING = CameraSource.CAMERA_FACING_FRONT;
 
     public static final float REQUESTED_FPS = 30.0f;
 }
