@@ -1,6 +1,8 @@
 package pl.edu.agh.sr.facecursor.ui.main;
 
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 
 import butterknife.BindView;
 import pl.edu.agh.sr.facecursor.R;
@@ -9,6 +11,7 @@ import pl.edu.agh.sr.facecursor.dagger.main.MainModule;
 import pl.edu.agh.sr.facecursor.presenter.main.MainPresenter;
 import pl.edu.agh.sr.facecursor.ui.BaseView;
 import pl.edu.agh.sr.facecursor.ui.main.layout.CameraSourceView;
+import pl.edu.agh.sr.facecursor.utils.Configuration;
 
 public class MainActivity extends BaseView<MainPresenter> implements IMainView {
 
@@ -50,5 +53,20 @@ public class MainActivity extends BaseView<MainPresenter> implements IMainView {
                 .mainModule(new MainModule(this))
                 .build()
                 .inject(this);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode != Configuration.CAMERA_PERMISSION_CODE) {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            return;
+        }
+
+        if (grantResults.length != 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            presenter.startTracking();
+            return;
+        }
+
+        presenter.handlePermissionDenied();
     }
 }

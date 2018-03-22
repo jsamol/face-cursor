@@ -1,9 +1,13 @@
 package pl.edu.agh.sr.facecursor.presenter.main;
 
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+
 import com.google.android.gms.vision.CameraSource;
 
 import pl.edu.agh.sr.facecursor.presenter.BasePresenter;
 import pl.edu.agh.sr.facecursor.ui.main.MainActivity;
+import pl.edu.agh.sr.facecursor.utils.Configuration;
 
 public class MainPresenter extends BasePresenter<MainActivity> implements IMainPresenter {
 
@@ -15,7 +19,11 @@ public class MainPresenter extends BasePresenter<MainActivity> implements IMainP
 
     @Override
     public void onCreate() {
-
+        if (checkIfCameraPermissionGranted()) {
+            startTracking();
+        } else {
+            requestCameraPermission();
+        }
     }
 
     @Override
@@ -43,6 +51,15 @@ public class MainPresenter extends BasePresenter<MainActivity> implements IMainP
     @Override
     public void handlePermissionDenied() {
 
+    }
+
+    private boolean checkIfCameraPermissionGranted() {
+        return ActivityCompat.checkSelfPermission(view.getApplicationContext(), Configuration.CAMERA_PERMISSION)
+                == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestCameraPermission() {
+        ActivityCompat.requestPermissions(view, new String[] { Configuration.CAMERA_PERMISSION }, Configuration.CAMERA_PERMISSION_CODE);
     }
 
 }
