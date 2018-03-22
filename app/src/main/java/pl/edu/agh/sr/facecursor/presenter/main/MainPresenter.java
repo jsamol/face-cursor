@@ -10,7 +10,6 @@ public class MainPresenter extends BasePresenter implements IMainPresenter {
 
     private CameraSource mCameraSource;
 
-    @Inject
     public MainPresenter(CameraSource cameraSource) {
         this.mCameraSource = cameraSource;
     }
