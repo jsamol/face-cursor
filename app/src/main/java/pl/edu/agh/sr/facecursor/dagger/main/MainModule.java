@@ -12,7 +12,6 @@ import com.google.android.gms.vision.face.FaceDetector;
 
 import dagger.Module;
 import dagger.Provides;
-import pl.edu.agh.sr.facecursor.presenter.BasePresenter;
 import pl.edu.agh.sr.facecursor.presenter.main.MainPresenter;
 import pl.edu.agh.sr.facecursor.utils.camera.CameraSourceConfiguration;
 import pl.edu.agh.sr.facecursor.utils.facetracker.FaceTrackerFactory;
@@ -26,7 +25,7 @@ public class MainModule {
     }
 
     @Provides
-    BasePresenter providePresenter(CameraSource cameraSource) {
+    MainPresenter providePresenter(CameraSource cameraSource) {
         return new MainPresenter(cameraSource);
     }
 

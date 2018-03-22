@@ -3,8 +3,9 @@ package pl.edu.agh.sr.facecursor.presenter.main;
 import com.google.android.gms.vision.CameraSource;
 
 import pl.edu.agh.sr.facecursor.presenter.BasePresenter;
+import pl.edu.agh.sr.facecursor.ui.main.MainActivity;
 
-public class MainPresenter extends BasePresenter implements IMainPresenter {
+public class MainPresenter extends BasePresenter<MainActivity> implements IMainPresenter {
 
     private CameraSource mCameraSource;
 

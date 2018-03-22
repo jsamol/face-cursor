@@ -6,10 +6,11 @@ import butterknife.BindView;
 import pl.edu.agh.sr.facecursor.R;
 import pl.edu.agh.sr.facecursor.dagger.main.DaggerMainComponent;
 import pl.edu.agh.sr.facecursor.dagger.main.MainModule;
+import pl.edu.agh.sr.facecursor.presenter.main.MainPresenter;
 import pl.edu.agh.sr.facecursor.ui.BaseView;
 import pl.edu.agh.sr.facecursor.ui.main.layout.CameraSourceView;
 
-public class MainActivity extends BaseView implements IMainView {
+public class MainActivity extends BaseView<MainPresenter> implements IMainView {
 
     @BindView(R.id.cameraSourceView)
     CameraSourceView cameraSourceView;

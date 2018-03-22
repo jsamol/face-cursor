@@ -1,12 +1,10 @@
 package pl.edu.agh.sr.facecursor.presenter;
 
-import pl.edu.agh.sr.facecursor.ui.BaseView;
-
-public abstract class BasePresenter implements Presenter {
-    protected BaseView view;
+public abstract class BasePresenter<T> implements Presenter<T> {
+    protected T view;
 
     @Override
-    public void bindView(BaseView view) {
+    public void bindView(T view) {
         this.view = view;
     }
 }

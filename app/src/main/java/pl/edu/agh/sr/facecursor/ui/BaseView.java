@@ -6,8 +6,8 @@ import javax.inject.Inject;
 
 import pl.edu.agh.sr.facecursor.presenter.BasePresenter;
 
-public abstract class BaseView extends AppCompatActivity implements View {
+public abstract class BaseView<T> extends AppCompatActivity implements View {
 
     @Inject
-    protected BasePresenter presenter;
+    protected T presenter;
 }
