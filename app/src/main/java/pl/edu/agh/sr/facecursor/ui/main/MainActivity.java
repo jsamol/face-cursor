@@ -20,6 +20,27 @@ public class MainActivity extends BaseView implements IMainView {
         setContentView(R.layout.activity_main);
 
         initDagger();
+
+        presenter.bindView(this);
+        presenter.onCreate();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        presenter.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
     }
 
     @Override
