@@ -1,4 +1,4 @@
-package pl.edu.agh.sr.facecursor.utils;
+package pl.edu.agh.sr.facecursor.utils.camera;
 
 import com.google.android.gms.vision.CameraSource;
 
