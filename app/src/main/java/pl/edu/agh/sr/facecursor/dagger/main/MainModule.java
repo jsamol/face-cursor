@@ -1,6 +1,7 @@
 package pl.edu.agh.sr.facecursor.dagger.main;
 
 import android.content.Context;
+import android.view.SurfaceView;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -13,6 +14,7 @@ import com.google.android.gms.vision.face.FaceDetector;
 import dagger.Module;
 import dagger.Provides;
 import pl.edu.agh.sr.facecursor.presenter.main.MainPresenter;
+import pl.edu.agh.sr.facecursor.ui.main.layout.SurfaceHolderCallback;
 import pl.edu.agh.sr.facecursor.utils.camera.CameraSourceConfiguration;
 import pl.edu.agh.sr.facecursor.utils.facetracker.FaceTrackerFactory;
 
@@ -60,5 +62,15 @@ public class MainModule {
     @Provides
     Factory<Face> provideFactory() {
         return new FaceTrackerFactory();
+    }
+
+    @Provides
+    SurfaceView provideSurfaceView() {
+        return new SurfaceView(context);
+    }
+
+    @Provides
+    SurfaceHolderCallback provideSurfaceHolderCallback() {
+        return new SurfaceHolderCallback();
     }
 }
