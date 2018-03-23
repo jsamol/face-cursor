@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import pl.edu.agh.sr.facecursor.R;
 import pl.edu.agh.sr.facecursor.dagger.main.DaggerMainComponent;
 import pl.edu.agh.sr.facecursor.dagger.main.MainModule;
@@ -22,6 +23,7 @@ public class MainActivity extends BaseView<MainPresenter> implements IMainView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
         initDagger();
 
