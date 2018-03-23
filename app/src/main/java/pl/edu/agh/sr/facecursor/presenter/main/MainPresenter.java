@@ -7,7 +7,7 @@ import com.google.android.gms.vision.CameraSource;
 
 import pl.edu.agh.sr.facecursor.presenter.BasePresenter;
 import pl.edu.agh.sr.facecursor.ui.main.MainActivity;
-import pl.edu.agh.sr.facecursor.utils.Configuration;
+import pl.edu.agh.sr.facecursor.utils.AppConfiguration;
 
 public class MainPresenter extends BasePresenter<MainActivity> implements IMainPresenter {
 
@@ -54,12 +54,12 @@ public class MainPresenter extends BasePresenter<MainActivity> implements IMainP
     }
 
     private boolean checkIfCameraPermissionGranted() {
-        return ActivityCompat.checkSelfPermission(view.getApplicationContext(), Configuration.CAMERA_PERMISSION)
+        return ActivityCompat.checkSelfPermission(view.getApplicationContext(), AppConfiguration.CAMERA_PERMISSION)
                 == PackageManager.PERMISSION_GRANTED;
     }
 
     private void requestCameraPermission() {
-        ActivityCompat.requestPermissions(view, new String[] { Configuration.CAMERA_PERMISSION }, Configuration.CAMERA_PERMISSION_CODE);
+        ActivityCompat.requestPermissions(view, new String[] { AppConfiguration.CAMERA_PERMISSION }, AppConfiguration.CAMERA_PERMISSION_CODE);
     }
 
 }

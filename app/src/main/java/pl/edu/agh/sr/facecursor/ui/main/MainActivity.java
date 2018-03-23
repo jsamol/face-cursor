@@ -11,7 +11,7 @@ import pl.edu.agh.sr.facecursor.dagger.main.MainModule;
 import pl.edu.agh.sr.facecursor.presenter.main.MainPresenter;
 import pl.edu.agh.sr.facecursor.ui.BaseView;
 import pl.edu.agh.sr.facecursor.ui.main.layout.CameraSourceView;
-import pl.edu.agh.sr.facecursor.utils.Configuration;
+import pl.edu.agh.sr.facecursor.utils.AppConfiguration;
 
 public class MainActivity extends BaseView<MainPresenter> implements IMainView {
 
@@ -57,7 +57,7 @@ public class MainActivity extends BaseView<MainPresenter> implements IMainView {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode != Configuration.CAMERA_PERMISSION_CODE) {
+        if (requestCode != AppConfiguration.CAMERA_PERMISSION_CODE) {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
             return;
         }
