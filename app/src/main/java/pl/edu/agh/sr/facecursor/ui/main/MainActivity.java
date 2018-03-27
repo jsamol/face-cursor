@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import pl.edu.agh.sr.facecursor.FaceCursorApp;
 import pl.edu.agh.sr.facecursor.R;
 import pl.edu.agh.sr.facecursor.dagger.main.DaggerMainComponent;
 import pl.edu.agh.sr.facecursor.dagger.main.MainModule;
@@ -52,7 +53,8 @@ public class MainActivity extends BaseView<MainPresenter> implements IMainView {
     @Override
     public void initDagger() {
         DaggerMainComponent.builder()
-                .mainModule(new MainModule(this))
+                .appComponent(((FaceCursorApp) getApplication()).getComponent())
+                .mainModule(new MainModule())
                 .build()
                 .inject(this);
     }

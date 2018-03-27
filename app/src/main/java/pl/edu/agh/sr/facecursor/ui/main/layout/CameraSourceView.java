@@ -14,6 +14,7 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
+import pl.edu.agh.sr.facecursor.FaceCursorApp;
 import pl.edu.agh.sr.facecursor.utils.AppConfiguration;
 
 public class CameraSourceView extends ViewGroup {
@@ -37,6 +38,8 @@ public class CameraSourceView extends ViewGroup {
         super(context, attrs);
 
         this.mContext = context;
+
+        this.initDagger();
 
         if (surfaceView != null && surfaceHolderCallback != null) {
             surfaceHolderCallback.bindCameraSourceView(this);
@@ -105,5 +108,11 @@ public class CameraSourceView extends ViewGroup {
 
     void setSurfaceAvailable(boolean surfaceAvailable) {
         isSurfaceAvailable = surfaceAvailable;
+    }
+
+    private void initDagger() {
+        ((FaceCursorApp) mContext.getApplicationContext())
+                .getComponent()
+                .injectCameraSourceView(this);
     }
 }
