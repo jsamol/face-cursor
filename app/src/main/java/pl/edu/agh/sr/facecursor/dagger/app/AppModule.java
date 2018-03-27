@@ -1,6 +1,10 @@
 package pl.edu.agh.sr.facecursor.dagger.app;
 
 import android.content.Context;
+import android.graphics.Point;
+import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.SurfaceView;
 
 import com.google.android.gms.vision.CameraSource;
@@ -13,6 +17,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import pl.edu.agh.sr.facecursor.FaceCursorApp;
 import pl.edu.agh.sr.facecursor.ui.main.layout.SurfaceHolderCallback;
 import pl.edu.agh.sr.facecursor.utils.camera.CameraSourceConfiguration;
 import pl.edu.agh.sr.facecursor.utils.facetracker.FaceTrackerFactory;
@@ -39,10 +44,16 @@ public class AppModule {
 
     @Singleton
     @Provides
-    CameraSource provideCameraSource(Detector detector) {
+    CameraSource provideCameraSource(Detector detector, DisplayMetrics displayMetrics) {
+        int width = CameraSourceConfiguration.PREVIEW_WIDTH;
+        int height = CameraSourceConfiguration.PREVIEW_HEIGHT;
+
+        if (displayMetrics != null) {
+            width = displayMetrics.widthPixels;
+            height = displayMetrics.heightPixels;
+        }
         return new CameraSource.Builder(mContext, detector)
-                .setRequestedPreviewSize(CameraSourceConfiguration.PREVIEW_HEIGHT,
-                        CameraSourceConfiguration.PREVIEW_WIDTH)
+                .setRequestedPreviewSize(height, width)
                 .setFacing(CameraSourceConfiguration.FACING)
                 .setRequestedFps(CameraSourceConfiguration.REQUESTED_FPS)
                 .build();
@@ -75,5 +86,10 @@ public class AppModule {
     @Provides
     FaceUpdateHandler provideFaceHandler() {
         return new FaceUpdateHandler();
+    }
+
+    @Provides
+    DisplayMetrics provideDisplay() {
+        return mContext.getResources().getDisplayMetrics();
     }
 }
