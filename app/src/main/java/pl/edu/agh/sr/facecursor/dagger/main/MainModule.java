@@ -10,7 +10,7 @@ import pl.edu.agh.sr.facecursor.presenter.main.MainPresenter;
 public class MainModule {
 
     @Provides
-    MainPresenter providePresenter(CameraSource cameraSource) {
-        return new MainPresenter(cameraSource);
+    MainPresenter providePresenter() {
+        return new MainPresenter();
     }
 }

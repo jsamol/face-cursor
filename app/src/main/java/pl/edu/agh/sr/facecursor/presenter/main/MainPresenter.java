@@ -1,9 +1,6 @@
 package pl.edu.agh.sr.facecursor.presenter.main;
 
-import android.content.pm.PackageManager;
-import android.support.v4.app.ActivityCompat;
-
-import com.google.android.gms.vision.CameraSource;
+import java.util.List;
 
 import pl.edu.agh.sr.facecursor.presenter.BasePresenter;
 import pl.edu.agh.sr.facecursor.ui.main.MainActivity;
@@ -11,18 +8,12 @@ import pl.edu.agh.sr.facecursor.utils.AppConfiguration;
 
 public class MainPresenter extends BasePresenter<MainActivity> implements IMainPresenter {
 
-    private CameraSource mCameraSource;
-
-    public MainPresenter(CameraSource cameraSource) {
-        this.mCameraSource = cameraSource;
-    }
-
     @Override
     public void onCreate() {
-        if (checkIfCameraPermissionGranted()) {
-            startTracking();
+        if (checkIfPermissionGranted(AppConfiguration.CAMERA_PERMISSION)) {
+            view.startTracking();
         } else {
-            requestCameraPermission();
+            requestPermission(AppConfiguration.CAMERA_PERMISSION_REQUEST_CODE, AppConfiguration.CAMERA_PERMISSION);
         }
     }
 
@@ -38,28 +29,15 @@ public class MainPresenter extends BasePresenter<MainActivity> implements IMainP
 
     @Override
     public void onDestroy() {
-        if (mCameraSource != null) {
-            mCameraSource.release();
+
+    }
+
+    @Override
+    public void handlePermissionResult(int requestCode, List<String> permissions, List<Boolean> grantResults) {
+        switch (requestCode) {
+            case AppConfiguration.CAMERA_PERMISSION_REQUEST_CODE:
+
+                break;
         }
     }
-
-    @Override
-    public void startTracking() {
-
-    }
-
-    @Override
-    public void handlePermissionDenied() {
-
-    }
-
-    private boolean checkIfCameraPermissionGranted() {
-        return ActivityCompat.checkSelfPermission(view.getApplicationContext(), AppConfiguration.CAMERA_PERMISSION)
-                == PackageManager.PERMISSION_GRANTED;
-    }
-
-    private void requestCameraPermission() {
-        ActivityCompat.requestPermissions(view, new String[] { AppConfiguration.CAMERA_PERMISSION }, AppConfiguration.CAMERA_PERMISSION_CODE);
-    }
-
 }
