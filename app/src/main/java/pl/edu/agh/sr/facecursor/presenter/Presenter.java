@@ -1,6 +1,8 @@
 package pl.edu.agh.sr.facecursor.presenter;
 
-public interface Presenter<T> {
+import android.app.Activity;
+
+public interface Presenter<T extends Activity> {
     void onCreate();
     void onResume();
     void onPause();
