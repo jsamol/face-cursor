@@ -97,7 +97,7 @@ public class CameraSourceView extends ViewGroup {
     public void start() throws IOException {
         if (cameraSource != null && isSurfaceAvailable && checkIfCameraPermissionGranted()) {
             cameraSource.start(surfaceView.getHolder());
-
+            requestLayout();
         }
     }
 
