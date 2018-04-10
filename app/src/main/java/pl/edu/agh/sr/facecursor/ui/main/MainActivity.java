@@ -4,9 +4,12 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.vision.CameraSource;
 import com.google.common.primitives.Ints;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 import javax.inject.Inject;
@@ -24,6 +27,8 @@ import pl.edu.agh.sr.facecursor.ui.main.layout.CameraSourceView;
 import timber.log.Timber;
 
 public class MainActivity extends BaseView<MainPresenter> implements IMainView {
+
+    private static final int RC_HANDLE_GMS = 9001;
 
     @BindView(R.id.cameraSourceView)
     CameraSourceView cameraSourceView;
@@ -58,6 +63,7 @@ public class MainActivity extends BaseView<MainPresenter> implements IMainView {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        releaseCameraSource();
         presenter.onDestroy();
     }
 
@@ -79,7 +85,25 @@ public class MainActivity extends BaseView<MainPresenter> implements IMainView {
     }
 
     @Override
-    public void startTracking() {
+    public void startTracking() throws IOException {
+        presenter.checkGooglePlayServicesAvailability(GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(getApplicationContext()),
+                                                      ConnectionResult.SUCCESS);
 
+        if (cameraSource != null) {
+            cameraSourceView.start();
+        }
+    }
+
+    @Override
+    public void releaseCameraSource() {
+        if (cameraSource != null) {
+            cameraSource.release();
+            cameraSource = null;
+        }
+    }
+
+    @Override
+    public void handleGooglePlayServiceUnavailable(int availabilityCode) {
+        GoogleApiAvailability.getInstance().getErrorDialog(this, availabilityCode, RC_HANDLE_GMS).show();
     }
 }

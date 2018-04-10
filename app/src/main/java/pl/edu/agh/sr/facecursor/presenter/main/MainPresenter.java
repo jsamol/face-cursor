@@ -78,6 +78,15 @@ public class MainPresenter extends BasePresenter<MainActivity> implements IMainP
         }
     }
 
+    @Override
+    public void checkGooglePlayServicesAvailability(int availabilityCode, int successCode) {
+        if (availabilityCode != successCode) {
+            if (view != null) {
+                view.handleGooglePlayServiceUnavailable(availabilityCode);
+            }
+        }
+    }
+
     private void requestCameraPermission() {
         permissionUtils.requestPermission(view, PermissionUtils.CAMERA_PERMISSION_REQUEST_CODE, PermissionUtils.CAMERA_PERMISSION);
     }
