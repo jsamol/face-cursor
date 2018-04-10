@@ -5,10 +5,10 @@ import android.app.Activity;
 import java.util.List;
 
 public interface Presenter<T extends Activity> {
-    void onCreate();
-    void onResume();
-    void onPause();
-    void onDestroy();
+    void onViewCreated();
+    void onViewResumed();
+    void onViewPaused();
+    void onViewDestroyed();
     void bindView(T view);
     void handlePermissionResult(int requestCode, List<String> permissions, List<Boolean> grantResults);
 }

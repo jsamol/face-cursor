@@ -45,26 +45,26 @@ public class MainActivity extends BaseView<MainPresenter> implements IMainView {
         initDagger();
 
         presenter.bindView(this);
-        presenter.onCreate();
+        presenter.onViewCreated();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.onResume();
+        presenter.onViewResumed();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        presenter.onPause();
+        presenter.onViewPaused();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         releaseCameraSource();
-        presenter.onDestroy();
+        presenter.onViewDestroyed();
     }
 
     @Override

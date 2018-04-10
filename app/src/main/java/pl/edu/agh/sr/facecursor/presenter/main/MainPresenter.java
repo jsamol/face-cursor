@@ -17,7 +17,7 @@ public class MainPresenter extends BasePresenter<MainActivity> implements IMainP
     }
 
     @Override
-    public void onCreate() {
+    public void onViewCreated() {
         if (permissionUtils.checkIfPermissionGranted(PermissionUtils.CAMERA_PERMISSION)) {
             if (view != null) {
                 try {
@@ -33,17 +33,17 @@ public class MainPresenter extends BasePresenter<MainActivity> implements IMainP
     }
 
     @Override
-    public void onResume() {
+    public void onViewResumed() {
 
     }
 
     @Override
-    public void onPause() {
+    public void onViewPaused() {
 
     }
 
     @Override
-    public void onDestroy() {
+    public void onViewDestroyed() {
 
     }
 
