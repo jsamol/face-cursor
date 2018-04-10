@@ -16,7 +16,7 @@ public class MainPresenter extends BasePresenter<MainActivity> implements IMainP
         if (checkIfPermissionGranted(AppConfiguration.CAMERA_PERMISSION)) {
             view.startTracking();
         } else {
-            requestPermission(AppConfiguration.CAMERA_PERMISSION_REQUEST_CODE, AppConfiguration.CAMERA_PERMISSION);
+            requestCameraPermission();
         }
     }
 
@@ -49,11 +49,15 @@ public class MainPresenter extends BasePresenter<MainActivity> implements IMainP
                             if (permissionResult.getGrantResult()) {
                                 view.startTracking();
                             } else {
-
+                                requestCameraPermission();
                             }
                         }, Timber::e);
 
                 break;
         }
+    }
+
+    private void requestCameraPermission() {
+        requestPermission(AppConfiguration.CAMERA_PERMISSION_REQUEST_CODE, AppConfiguration.CAMERA_PERMISSION);
     }
 }
