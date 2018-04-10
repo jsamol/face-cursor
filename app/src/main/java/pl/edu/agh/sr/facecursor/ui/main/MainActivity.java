@@ -21,6 +21,7 @@ import pl.edu.agh.sr.facecursor.dagger.main.MainModule;
 import pl.edu.agh.sr.facecursor.presenter.main.MainPresenter;
 import pl.edu.agh.sr.facecursor.ui.BaseView;
 import pl.edu.agh.sr.facecursor.ui.main.layout.CameraSourceView;
+import timber.log.Timber;
 
 public class MainActivity extends BaseView<MainPresenter> implements IMainView {
 
@@ -74,7 +75,7 @@ public class MainActivity extends BaseView<MainPresenter> implements IMainView {
         Observable.fromIterable(Ints.asList(grantResults))
                 .map(grantResult -> grantResult == PackageManager.PERMISSION_GRANTED)
                 .toList()
-                .subscribe(results -> presenter.handlePermissionResult(requestCode, Arrays.asList(permissions), results));
+                .subscribe(results -> presenter.handlePermissionResult(requestCode, Arrays.asList(permissions), results), Timber::e);
     }
 
     @Override
