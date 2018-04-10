@@ -11,6 +11,13 @@
     <pl.edu.agh.sr.facecursor.ui.main.layout.CameraSourceView
         android:id="@+id/cameraSourceView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+        
+        <pl.edu.agh.sr.facecursor.ui.main.layout.GraphicOverlay
+            android:id="@+id/faceOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </pl.edu.agh.sr.facecursor.ui.main.layout.CameraSourceView>
+        
 
 </android.support.constraint.ConstraintLayout>
