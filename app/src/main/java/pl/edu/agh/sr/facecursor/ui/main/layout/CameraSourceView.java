@@ -33,10 +33,10 @@ public class CameraSourceView extends ViewGroup {
 
     @Inject
     CameraSource cameraSource;
-
     @Inject
     PermissionUtils permissionUtils;
 
+    private GraphicOverlay mGraphicOverlay;
     private boolean isSurfaceAvailable;
 
     public CameraSourceView(Context context, AttributeSet attrs) {
@@ -93,11 +93,28 @@ public class CameraSourceView extends ViewGroup {
         }
     }
 
+    public void start(GraphicOverlay graphicOverlay) throws IOException {
+        mGraphicOverlay = graphicOverlay;
+        start();
+    }
+
     @SuppressLint("MissingPermission")
-    public void start() throws IOException {
+    void start() throws IOException {
         if (cameraSource != null && isSurfaceAvailable && checkIfCameraPermissionGranted()) {
             cameraSource.start(surfaceView.getHolder());
             requestLayout();
+
+            if (mGraphicOverlay != null) {
+                Size size = cameraSource.getPreviewSize();
+                int min = Math.min(size.getWidth(), size.getHeight());
+                int max = Math.max(size.getWidth(), size.getHeight());
+                if (isPortraitMode()) {
+                    mGraphicOverlay.setCameraInfo(min, max, cameraSource.getCameraFacing());
+                } else {
+                    mGraphicOverlay.setCameraInfo(max, min, cameraSource.getCameraFacing());
+                }
+                mGraphicOverlay.clear();
+            }
         }
     }
 
