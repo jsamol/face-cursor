@@ -16,6 +16,7 @@ import javax.inject.Inject;
 
 import pl.edu.agh.sr.facecursor.FaceCursorApp;
 import pl.edu.agh.sr.facecursor.utils.AppConfiguration;
+import pl.edu.agh.sr.facecursor.utils.PermissionUtils;
 
 public class CameraSourceView extends ViewGroup {
 
@@ -31,6 +32,9 @@ public class CameraSourceView extends ViewGroup {
 
     @Inject
     CameraSource cameraSource;
+
+    @Inject
+    PermissionUtils permissionUtils;
 
     private boolean isSurfaceAvailable;
 
@@ -89,8 +93,8 @@ public class CameraSourceView extends ViewGroup {
     }
 
     @SuppressLint("MissingPermission")
-    void start() throws IOException {
-        if (cameraSource != null && isSurfaceAvailable) {
+    public void start() throws IOException {
+        if (cameraSource != null && isSurfaceAvailable && checkIfCameraPermissionGranted()) {
             cameraSource.start(surfaceView.getHolder());
         }
     }
@@ -114,5 +118,9 @@ public class CameraSourceView extends ViewGroup {
         ((FaceCursorApp) mContext.getApplicationContext())
                 .getComponent()
                 .injectCameraSourceView(this);
+    }
+
+    private boolean checkIfCameraPermissionGranted() {
+        return permissionUtils.checkIfPermissionGranted(PermissionUtils.CAMERA_PERMISSION);
     }
 }
