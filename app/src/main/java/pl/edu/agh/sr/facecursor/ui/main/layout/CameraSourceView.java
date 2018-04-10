@@ -101,6 +101,12 @@ public class CameraSourceView extends ViewGroup {
         }
     }
 
+    public void stop() {
+        if (cameraSource != null) {
+            cameraSource.stop();
+        }
+    }
+
     private boolean isPortraitMode() {
         return mContext.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
     }

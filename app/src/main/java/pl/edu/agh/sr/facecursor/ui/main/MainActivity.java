@@ -57,6 +57,7 @@ public class MainActivity extends BaseView<MainPresenter> implements IMainView {
     @Override
     protected void onPause() {
         super.onPause();
+        cameraSourceView.stop();
         presenter.onViewPaused();
     }
 

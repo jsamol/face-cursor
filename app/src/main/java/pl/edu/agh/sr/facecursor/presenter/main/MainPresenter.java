@@ -19,14 +19,7 @@ public class MainPresenter extends BasePresenter<MainActivity> implements IMainP
     @Override
     public void onViewCreated() {
         if (permissionUtils.checkIfPermissionGranted(PermissionUtils.CAMERA_PERMISSION)) {
-            if (view != null) {
-                try {
-                    view.startTracking();
-                } catch (IOException e) {
-                    Timber.e(e);
-                    view.releaseCameraSource();
-                }
-            }
+            startTracking();
         } else {
             requestCameraPermission();
         }
@@ -34,7 +27,7 @@ public class MainPresenter extends BasePresenter<MainActivity> implements IMainP
 
     @Override
     public void onViewResumed() {
-
+        startTracking();
     }
 
     @Override
@@ -59,20 +52,11 @@ public class MainPresenter extends BasePresenter<MainActivity> implements IMainP
                         .firstElement()
                         .subscribe(permissionResult -> {
                             if (permissionResult.getGrantResult()) {
-                                if (view != null) {
-                                    view.startTracking();
-                                }
+                                startTracking();
                             } else {
                                 requestCameraPermission();
                             }
-                        }, e -> {
-                            if (e instanceof IOException) {
-                                if (view != null) {
-                                    view.releaseCameraSource();
-                                }
-                            }
-                            Timber.e(e);
-                        });
+                        }, Timber::e);
 
                 break;
         }
@@ -89,5 +73,15 @@ public class MainPresenter extends BasePresenter<MainActivity> implements IMainP
 
     private void requestCameraPermission() {
         permissionUtils.requestPermission(view, PermissionUtils.CAMERA_PERMISSION_REQUEST_CODE, PermissionUtils.CAMERA_PERMISSION);
+    }
+
+    private void startTracking() {
+        if (view != null) {
+            try {
+                view.startTracking();
+            } catch (IOException e) {
+                Timber.e(e);
+            }
+        }
     }
 }
