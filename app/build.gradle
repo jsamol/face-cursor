@@ -53,4 +53,7 @@ dependencies {
 
     // Guava
     compile 'com.google.guava:guava:24.1-android'
+
+    // Timber
+    implementation 'com.jakewharton.timber:timber:4.7.0'
 }
