@@ -10,6 +10,7 @@ import dagger.Component;
 import dagger.android.AndroidInjector;
 import pl.edu.agh.sr.facecursor.FaceCursorApp;
 import pl.edu.agh.sr.facecursor.ui.main.layout.CameraSourceView;
+import pl.edu.agh.sr.facecursor.utils.PermissionUtils;
 import pl.edu.agh.sr.facecursor.utils.facetracker.FaceTracker;
 
 @Singleton
@@ -20,4 +21,6 @@ public interface AppComponent extends AndroidInjector<FaceCursorApp> {
     CameraSource makeCameraSource();
 
     FaceTracker makeFaceTracker();
+
+    PermissionUtils makePermissionUtils();
 }

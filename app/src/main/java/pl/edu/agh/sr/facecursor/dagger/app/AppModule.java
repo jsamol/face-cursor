@@ -1,10 +1,7 @@
 package pl.edu.agh.sr.facecursor.dagger.app;
 
 import android.content.Context;
-import android.graphics.Point;
-import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.SurfaceView;
 
 import com.google.android.gms.vision.CameraSource;
@@ -17,8 +14,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import pl.edu.agh.sr.facecursor.FaceCursorApp;
 import pl.edu.agh.sr.facecursor.ui.main.layout.SurfaceHolderCallback;
+import pl.edu.agh.sr.facecursor.utils.PermissionUtils;
 import pl.edu.agh.sr.facecursor.utils.camera.CameraSourceConfiguration;
 import pl.edu.agh.sr.facecursor.utils.facetracker.FaceTrackerFactory;
 import pl.edu.agh.sr.facecursor.utils.facetracker.FaceUpdateHandler;
@@ -91,5 +88,11 @@ public class AppModule {
     @Provides
     DisplayMetrics provideDisplay() {
         return mContext.getResources().getDisplayMetrics();
+    }
+
+    @Singleton
+    @Provides
+    PermissionUtils providePermissionUtils() {
+        return new PermissionUtils(mContext);
     }
 }
