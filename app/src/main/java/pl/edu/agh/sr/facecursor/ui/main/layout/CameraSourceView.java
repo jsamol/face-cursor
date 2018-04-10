@@ -17,6 +17,7 @@ import javax.inject.Inject;
 import pl.edu.agh.sr.facecursor.FaceCursorApp;
 import pl.edu.agh.sr.facecursor.utils.AppConfiguration;
 import pl.edu.agh.sr.facecursor.utils.PermissionUtils;
+import timber.log.Timber;
 
 public class CameraSourceView extends ViewGroup {
 
@@ -88,7 +89,7 @@ public class CameraSourceView extends ViewGroup {
         try {
             start();
         } catch (IOException e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
     }
 
@@ -96,18 +97,12 @@ public class CameraSourceView extends ViewGroup {
     public void start() throws IOException {
         if (cameraSource != null && isSurfaceAvailable && checkIfCameraPermissionGranted()) {
             cameraSource.start(surfaceView.getHolder());
+
         }
     }
 
     private boolean isPortraitMode() {
-        int orientation = mContext.getResources().getConfiguration().orientation;
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            return false;
-        } else if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-            return true;
-        }
-
-        return false;
+        return mContext.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
     }
 
     void setSurfaceAvailable(boolean surfaceAvailable) {

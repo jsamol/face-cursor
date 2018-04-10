@@ -42,15 +42,15 @@ public class AppModule {
     @Singleton
     @Provides
     CameraSource provideCameraSource(Detector detector, DisplayMetrics displayMetrics) {
-        int width = CameraSourceConfiguration.PREVIEW_WIDTH;
-        int height = CameraSourceConfiguration.PREVIEW_HEIGHT;
+        int portraitWidth = CameraSourceConfiguration.PREVIEW_PORTRAIT_WIDTH;
+        int portraitHeight = CameraSourceConfiguration.PREVIEW_PORTRAIT_HEIGHT;
 
         if (displayMetrics != null) {
-            width = displayMetrics.widthPixels;
-            height = displayMetrics.heightPixels;
+            portraitWidth = displayMetrics.widthPixels;
+            portraitHeight = displayMetrics.heightPixels;
         }
         return new CameraSource.Builder(mContext, detector)
-                .setRequestedPreviewSize(width, height)
+                .setRequestedPreviewSize(portraitHeight, portraitWidth)
                 .setFacing(CameraSourceConfiguration.FACING)
                 .setRequestedFps(CameraSourceConfiguration.REQUESTED_FPS)
                 .build();
