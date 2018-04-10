@@ -2,9 +2,12 @@ package pl.edu.agh.sr.facecursor.presenter.main;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import pl.edu.agh.sr.facecursor.presenter.BasePresenter;
 import pl.edu.agh.sr.facecursor.ui.main.MainActivity;
 import pl.edu.agh.sr.facecursor.utils.AppConfiguration;
+import pl.edu.agh.sr.facecursor.utils.types.PermissionResults;
+import timber.log.Timber;
 
 public class MainPresenter extends BasePresenter<MainActivity> implements IMainPresenter {
 
@@ -36,6 +39,19 @@ public class MainPresenter extends BasePresenter<MainActivity> implements IMainP
     public void handlePermissionResult(int requestCode, List<String> permissions, List<Boolean> grantResults) {
         switch (requestCode) {
             case AppConfiguration.CAMERA_PERMISSION_REQUEST_CODE:
+                Observable<String> permissionsObservable = Observable.fromIterable(permissions);
+                Observable<Boolean> grantResultsObservable = Observable.fromIterable(grantResults);
+
+                Observable.zip(permissionsObservable, grantResultsObservable, PermissionResults::new)
+                        .filter(permissionResult -> permissionResult.getPermission().equals(AppConfiguration.CAMERA_PERMISSION))
+                        .firstElement()
+                        .subscribe(permissionResult -> {
+                            if (permissionResult.getGrantResult()) {
+                                view.startTracking();
+                            } else {
+
+                            }
+                        }, Timber::e);
 
                 break;
         }
