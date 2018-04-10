@@ -4,6 +4,8 @@ import android.view.SurfaceHolder;
 
 import java.io.IOException;
 
+import timber.log.Timber;
+
 public class SurfaceHolderCallback implements SurfaceHolder.Callback {
 
     private CameraSourceView mCameraSourceView;
@@ -14,7 +16,7 @@ public class SurfaceHolderCallback implements SurfaceHolder.Callback {
         try {
             mCameraSourceView.start();
         } catch (IOException e) {
-            e.printStackTrace();
+            Timber.e(e);
         }
     }
 

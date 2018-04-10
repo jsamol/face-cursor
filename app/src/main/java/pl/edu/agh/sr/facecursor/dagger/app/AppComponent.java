@@ -1,7 +1,5 @@
 package pl.edu.agh.sr.facecursor.dagger.app;
 
-import android.view.View;
-
 import com.google.android.gms.vision.CameraSource;
 
 import javax.inject.Singleton;
