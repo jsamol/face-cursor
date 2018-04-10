@@ -50,7 +50,7 @@ public class AppModule {
             height = displayMetrics.heightPixels;
         }
         return new CameraSource.Builder(mContext, detector)
-                .setRequestedPreviewSize(height, width)
+                .setRequestedPreviewSize(width, height)
                 .setFacing(CameraSourceConfiguration.FACING)
                 .setRequestedFps(CameraSourceConfiguration.REQUESTED_FPS)
                 .build();
