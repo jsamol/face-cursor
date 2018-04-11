@@ -17,7 +17,7 @@ public class FaceTracker extends Tracker<Face> {
 
     @Override
     public void onNewItem(int i, Face face) {
-        super.onNewItem(i, face);
+        mFaceUpdateHandler.onNewFace(i);
     }
 
     @Override
@@ -27,11 +27,11 @@ public class FaceTracker extends Tracker<Face> {
 
     @Override
     public void onMissing(Detector.Detections<Face> detections) {
-        super.onMissing(detections);
+        mFaceUpdateHandler.onFaceMissing();
     }
 
     @Override
     public void onDone() {
-        super.onDone();
+        mFaceUpdateHandler.onFaceMissing();
     }
 }
