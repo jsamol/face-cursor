@@ -14,7 +14,9 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
-import pl.edu.agh.sr.facecursor.FaceCursorApp;
+import pl.edu.agh.sr.facecursor.dagger.view.camerasourceview.CameraSourceViewComponent;
+import pl.edu.agh.sr.facecursor.dagger.view.camerasourceview.CameraSourceViewModule;
+import pl.edu.agh.sr.facecursor.ui.main.MainActivity;
 import pl.edu.agh.sr.facecursor.utils.AppConfiguration;
 import pl.edu.agh.sr.facecursor.utils.PermissionUtils;
 import timber.log.Timber;
@@ -33,23 +35,17 @@ public class CameraSourceView extends ViewGroup {
     CameraSource cameraSource;
 
     @Inject
+    GraphicOverlay graphicOverlay;
+
+    @Inject
     PermissionUtils permissionUtils;
 
-    private GraphicOverlay mGraphicOverlay;
     private boolean isSurfaceAvailable;
 
     public CameraSourceView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         this.mContext = context;
-
-        this.initDagger();
-
-        if (surfaceView != null && surfaceHolderCallback != null) {
-            surfaceHolderCallback.bindCameraSourceView(this);
-            surfaceView.getHolder().addCallback(surfaceHolderCallback);
-            addView(surfaceView);
-        }
     }
 
     @Override
@@ -74,11 +70,11 @@ public class CameraSourceView extends ViewGroup {
         }
 
         int childWidth = layoutWidth;
-        int childHeight = (int)(((float) layoutWidth / (float) width) * height);
+        int childHeight = (int) (((float) layoutWidth / (float) width) * height);
 
         if (childHeight > layoutHeight) {
             childHeight = layoutHeight;
-            childWidth = (int)(((float) layoutHeight / (float) height) * width);
+            childWidth = (int) (((float) layoutHeight / (float) height) * width);
         }
 
         for (int i = 0; i < getChildCount(); i++) {
@@ -92,27 +88,32 @@ public class CameraSourceView extends ViewGroup {
         }
     }
 
-    public void start(GraphicOverlay graphicOverlay) throws IOException {
-        mGraphicOverlay = graphicOverlay;
-        start();
+    public void init() {
+        initDagger();
+
+        if (surfaceView != null && surfaceHolderCallback != null) {
+            surfaceHolderCallback.bindCameraSourceView(this);
+            surfaceView.getHolder().addCallback(surfaceHolderCallback);
+            addView(surfaceView);
+        }
     }
 
     @SuppressLint("MissingPermission")
-    void start() throws IOException {
+    public void start() throws IOException {
         if (cameraSource != null && isSurfaceAvailable && checkIfCameraPermissionGranted()) {
             cameraSource.start(surfaceView.getHolder());
             requestLayout();
 
-            if (mGraphicOverlay != null) {
+            if (graphicOverlay != null) {
                 Size size = cameraSource.getPreviewSize();
                 int min = Math.min(size.getWidth(), size.getHeight());
                 int max = Math.max(size.getWidth(), size.getHeight());
                 if (isPortraitMode()) {
-                    mGraphicOverlay.setCameraInfo(min, max, cameraSource.getCameraFacing());
+                    graphicOverlay.setCameraInfo(min, max, cameraSource.getCameraFacing());
                 } else {
-                    mGraphicOverlay.setCameraInfo(max, min, cameraSource.getCameraFacing());
+                    graphicOverlay.setCameraInfo(max, min, cameraSource.getCameraFacing());
                 }
-                mGraphicOverlay.clear();
+                graphicOverlay.clear();
             }
         }
     }
@@ -132,9 +133,12 @@ public class CameraSourceView extends ViewGroup {
     }
 
     private void initDagger() {
-        ((FaceCursorApp) mContext.getApplicationContext())
-                .getComponent()
-                .injectCameraSourceView(this);
+        MainActivity activity = (MainActivity) mContext;
+        CameraSourceViewComponent component = (CameraSourceViewComponent) activity.getViewComponentBuilder(getClass())
+                .viewModule(new CameraSourceViewModule(mContext))
+                .build();
+
+        component.injectMembers(this);
     }
 
     private boolean checkIfCameraPermissionGranted() {

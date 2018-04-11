@@ -3,6 +3,7 @@ package pl.edu.agh.sr.facecursor.ui.main;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.View;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -11,6 +12,7 @@ import com.google.common.primitives.Ints;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -19,8 +21,10 @@ import butterknife.ButterKnife;
 import io.reactivex.Observable;
 import pl.edu.agh.sr.facecursor.FaceCursorApp;
 import pl.edu.agh.sr.facecursor.R;
-import pl.edu.agh.sr.facecursor.dagger.main.DaggerMainComponent;
-import pl.edu.agh.sr.facecursor.dagger.main.MainActivityModule;
+import pl.edu.agh.sr.facecursor.dagger.activity.main.MainActivityComponent;
+import pl.edu.agh.sr.facecursor.dagger.activity.main.MainActivityModule;
+import pl.edu.agh.sr.facecursor.dagger.view.ViewComponent;
+import pl.edu.agh.sr.facecursor.dagger.view.ViewModule;
 import pl.edu.agh.sr.facecursor.presenter.main.MainPresenter;
 import pl.edu.agh.sr.facecursor.ui.BaseActivity;
 import pl.edu.agh.sr.facecursor.ui.main.layout.CameraSourceView;
@@ -40,6 +44,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainAc
     @Inject
     CameraSource cameraSource;
 
+    @Inject
+    Map<Class<? extends View>, ViewComponent.Builder> viewComponentBuilders;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +54,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainAc
         ButterKnife.bind(this);
 
         initDagger();
+        cameraSourceView.init();
 
         presenter.bindView(this);
         presenter.onViewCreated();
@@ -74,11 +82,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainAc
 
     @Override
     public void initDagger() {
-        DaggerMainComponent.builder()
-                .appComponent(((FaceCursorApp) getApplication()).getComponent())
-                .mainModule(new MainActivityModule())
-                .build()
-                .inject(this);
+        FaceCursorApp app = (FaceCursorApp) getApplicationContext();
+        MainActivityComponent component = (MainActivityComponent) app.getActivityComponentBuilder(this.getClass())
+                .activityModule(new MainActivityModule(this))
+                .build();
+
+        component.injectMembers(this);
     }
 
     @Override
@@ -95,7 +104,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainAc
                                                       ConnectionResult.SUCCESS);
 
         if (cameraSource != null) {
-            cameraSourceView.start(graphicOverlay);
+            cameraSourceView.start();
         }
     }
 
@@ -110,5 +119,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainAc
     @Override
     public void handleGooglePlayServiceUnavailable(int availabilityCode) {
         GoogleApiAvailability.getInstance().getErrorDialog(this, availabilityCode, RC_HANDLE_GMS).show();
+    }
+
+    public GraphicOverlay getGraphicOverlay() {
+        return graphicOverlay;
+    }
+
+    public ViewComponent.Builder<ViewModule, ViewComponent> getViewComponentBuilder(Class<? extends View> viewClass) {
+        return viewComponentBuilders.containsKey(viewClass) ? viewComponentBuilders.get(viewClass) : null;
     }
 }

@@ -16,8 +16,8 @@ public class FaceTrackerModule {
     }
 
     @Provides
-    FaceUpdateHandler provideFaceUpdateHander() {
-        return new FaceUpdateHandler();
+    FaceUpdateHandler provideFaceUpdateHandler(GraphicOverlay graphicOverlay, FaceGraphic faceGraphic) {
+        return new FaceUpdateHandler(graphicOverlay, faceGraphic);
     }
 
     @Provides
