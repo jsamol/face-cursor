@@ -21,8 +21,6 @@ import timber.log.Timber;
 
 public class CameraSourceView extends ViewGroup {
 
-    private static final String TAG = "CameraSourceView";
-
     private Context mContext;
 
     @Inject
@@ -33,6 +31,7 @@ public class CameraSourceView extends ViewGroup {
 
     @Inject
     CameraSource cameraSource;
+
     @Inject
     PermissionUtils permissionUtils;
 

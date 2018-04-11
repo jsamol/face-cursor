@@ -12,14 +12,14 @@ public class PermissionUtils {
     public static final int CAMERA_PERMISSION_REQUEST_CODE = 1;
     public static final String CAMERA_PERMISSION = Manifest.permission.CAMERA;
 
-    private Context context;
+    private Context mContext;
 
     public PermissionUtils(Context context) {
-        this.context = context;
+        this.mContext = context;
     }
 
     public boolean checkIfPermissionGranted(String permission) {
-        return ActivityCompat.checkSelfPermission(context, permission)
+        return ActivityCompat.checkSelfPermission(mContext, permission)
                 == PackageManager.PERMISSION_GRANTED;
     }
 
