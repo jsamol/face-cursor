@@ -7,7 +7,7 @@ import pl.edu.agh.sr.facecursor.ui.main.MainActivity;
 
 @ActivityScope
 @Component(dependencies = AppComponent.class,
-        modules = MainModule.class)
-public interface MainComponent {
+        modules = MainActivityModule.class)
+public interface MainActivityComponent {
     void inject(MainActivity activity);
 }

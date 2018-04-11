@@ -20,7 +20,7 @@ import io.reactivex.Observable;
 import pl.edu.agh.sr.facecursor.FaceCursorApp;
 import pl.edu.agh.sr.facecursor.R;
 import pl.edu.agh.sr.facecursor.dagger.main.DaggerMainComponent;
-import pl.edu.agh.sr.facecursor.dagger.main.MainModule;
+import pl.edu.agh.sr.facecursor.dagger.main.MainActivityModule;
 import pl.edu.agh.sr.facecursor.presenter.main.MainPresenter;
 import pl.edu.agh.sr.facecursor.ui.BaseActivity;
 import pl.edu.agh.sr.facecursor.ui.main.layout.CameraSourceView;
@@ -76,7 +76,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainAc
     public void initDagger() {
         DaggerMainComponent.builder()
                 .appComponent(((FaceCursorApp) getApplication()).getComponent())
-                .mainModule(new MainModule())
+                .mainModule(new MainActivityModule())
                 .build()
                 .inject(this);
     }

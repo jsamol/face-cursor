@@ -6,7 +6,7 @@ import pl.edu.agh.sr.facecursor.presenter.main.MainPresenter;
 import pl.edu.agh.sr.facecursor.utils.PermissionUtils;
 
 @Module
-public class MainModule {
+public class MainActivityModule {
 
     @Provides
     MainPresenter providePresenter(PermissionUtils permissionUtils) {
