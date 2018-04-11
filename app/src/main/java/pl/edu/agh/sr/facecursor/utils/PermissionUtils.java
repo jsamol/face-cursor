@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 
-import pl.edu.agh.sr.facecursor.ui.BaseView;
+import pl.edu.agh.sr.facecursor.ui.BaseActivity;
 
 public class PermissionUtils {
 
@@ -23,7 +23,7 @@ public class PermissionUtils {
                 == PackageManager.PERMISSION_GRANTED;
     }
 
-    public void requestPermission(BaseView view, int requestCode, String... permissions) {
+    public void requestPermission(BaseActivity view, int requestCode, String... permissions) {
         ActivityCompat.requestPermissions(view, permissions, requestCode);
     }
 }

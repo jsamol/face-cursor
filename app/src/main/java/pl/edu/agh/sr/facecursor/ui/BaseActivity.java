@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import javax.inject.Inject;
 
-public abstract class BaseView<T> extends AppCompatActivity {
+public abstract class BaseActivity<T> extends AppCompatActivity {
 
     @Inject
     protected T presenter;

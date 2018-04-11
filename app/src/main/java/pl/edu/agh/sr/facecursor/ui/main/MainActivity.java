@@ -22,12 +22,12 @@ import pl.edu.agh.sr.facecursor.R;
 import pl.edu.agh.sr.facecursor.dagger.main.DaggerMainComponent;
 import pl.edu.agh.sr.facecursor.dagger.main.MainModule;
 import pl.edu.agh.sr.facecursor.presenter.main.MainPresenter;
-import pl.edu.agh.sr.facecursor.ui.BaseView;
+import pl.edu.agh.sr.facecursor.ui.BaseActivity;
 import pl.edu.agh.sr.facecursor.ui.main.layout.CameraSourceView;
 import pl.edu.agh.sr.facecursor.ui.main.layout.GraphicOverlay;
 import timber.log.Timber;
 
-public class MainActivity extends BaseView<MainPresenter> implements IMainView {
+public class MainActivity extends BaseActivity<MainPresenter> implements IMainActivity {
 
     private static final int RC_HANDLE_GMS = 9001;
 
