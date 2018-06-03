@@ -25,13 +25,13 @@ import pl.edu.agh.sr.facecursor.dagger.activity.main.MainActivityComponent;
 import pl.edu.agh.sr.facecursor.dagger.activity.main.MainActivityModule;
 import pl.edu.agh.sr.facecursor.dagger.view.ViewComponent;
 import pl.edu.agh.sr.facecursor.dagger.view.ViewModule;
-import pl.edu.agh.sr.facecursor.presenter.main.MainPresenter;
-import pl.edu.agh.sr.facecursor.ui.BaseActivity;
+import pl.edu.agh.sr.facecursor.ui.base.BaseActivity;
 import pl.edu.agh.sr.facecursor.ui.main.layout.CameraSourceView;
 import pl.edu.agh.sr.facecursor.ui.main.layout.GraphicOverlay;
+import pl.edu.agh.sr.facecursor.utils.PermissionUtils;
 import timber.log.Timber;
 
-public class MainActivity extends BaseActivity<MainPresenter> implements IMainActivity {
+public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View {
 
     private static final int RC_HANDLE_GMS = 9001;
 
@@ -106,6 +106,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements IMainAc
         if (cameraSource != null) {
             cameraSourceView.start();
         }
+    }
+
+    @Override
+    public void requestCameraPermissions() {
+        permissionUtils.requestPermission(this, PermissionUtils.CAMERA_PERMISSION_REQUEST_CODE, PermissionUtils.CAMERA_PERMISSION);
     }
 
     @Override

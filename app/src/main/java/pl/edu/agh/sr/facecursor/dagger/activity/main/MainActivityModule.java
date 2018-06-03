@@ -13,13 +13,12 @@ import dagger.Provides;
 import pl.edu.agh.sr.facecursor.dagger.activity.ActivityModule;
 import pl.edu.agh.sr.facecursor.dagger.view.camerasourceview.CameraSourceViewComponent;
 import pl.edu.agh.sr.facecursor.dagger.scopes.ActivityScope;
-import pl.edu.agh.sr.facecursor.presenter.main.MainPresenter;
+import pl.edu.agh.sr.facecursor.ui.main.MainPresenter;
 import pl.edu.agh.sr.facecursor.ui.main.MainActivity;
 import pl.edu.agh.sr.facecursor.ui.main.layout.GraphicOverlay;
 import pl.edu.agh.sr.facecursor.utils.PermissionUtils;
 import pl.edu.agh.sr.facecursor.utils.camera.CameraSourceConfiguration;
 import pl.edu.agh.sr.facecursor.utils.facetracker.FaceTrackerFactory;
-import pl.edu.agh.sr.facecursor.utils.facetracker.FaceUpdateHandler;
 
 @Module(subcomponents = CameraSourceViewComponent.class)
 public class MainActivityModule extends ActivityModule<MainActivity> {

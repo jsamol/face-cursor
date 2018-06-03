@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 
-import pl.edu.agh.sr.facecursor.ui.BaseActivity;
+import pl.edu.agh.sr.facecursor.ui.base.BaseActivity;
 
 public class PermissionUtils {
 

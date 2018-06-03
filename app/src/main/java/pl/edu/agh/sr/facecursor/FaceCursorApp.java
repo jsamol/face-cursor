@@ -13,7 +13,7 @@ import pl.edu.agh.sr.facecursor.dagger.app.AppModule;
 import pl.edu.agh.sr.facecursor.dagger.app.DaggerAppComponent;
 import pl.edu.agh.sr.facecursor.dagger.utils.UtilComponent;
 import pl.edu.agh.sr.facecursor.dagger.utils.UtilModule;
-import pl.edu.agh.sr.facecursor.ui.BaseActivity;
+import pl.edu.agh.sr.facecursor.ui.base.BaseActivity;
 import timber.log.Timber;
 
 public class FaceCursorApp extends Application {

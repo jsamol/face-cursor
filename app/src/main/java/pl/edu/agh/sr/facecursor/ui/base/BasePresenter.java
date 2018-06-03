@@ -1,12 +1,10 @@
-package pl.edu.agh.sr.facecursor.presenter;
-
-import android.app.Activity;
+package pl.edu.agh.sr.facecursor.ui.base;
 
 import java.util.List;
 
 import pl.edu.agh.sr.facecursor.utils.PermissionUtils;
 
-public abstract class BasePresenter<T extends Activity> {
+public abstract class BasePresenter<T> {
 
     protected PermissionUtils permissionUtils;
     protected T view;

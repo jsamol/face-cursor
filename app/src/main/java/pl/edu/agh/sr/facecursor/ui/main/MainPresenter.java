@@ -1,16 +1,15 @@
-package pl.edu.agh.sr.facecursor.presenter.main;
+package pl.edu.agh.sr.facecursor.ui.main;
 
 import java.io.IOException;
 import java.util.List;
 
 import io.reactivex.Observable;
-import pl.edu.agh.sr.facecursor.presenter.BasePresenter;
-import pl.edu.agh.sr.facecursor.ui.main.MainActivity;
+import pl.edu.agh.sr.facecursor.ui.base.BasePresenter;
 import pl.edu.agh.sr.facecursor.utils.PermissionUtils;
 import pl.edu.agh.sr.facecursor.utils.types.PermissionResults;
 import timber.log.Timber;
 
-public class MainPresenter extends BasePresenter<MainActivity> implements IMainPresenter {
+public class MainPresenter extends BasePresenter<MainContract.View> implements MainContract.Presenter {
 
     public MainPresenter(PermissionUtils permissionUtils) {
         super(permissionUtils);
@@ -21,7 +20,7 @@ public class MainPresenter extends BasePresenter<MainActivity> implements IMainP
         if (permissionUtils.checkIfPermissionGranted(PermissionUtils.CAMERA_PERMISSION)) {
             startTracking();
         } else {
-            requestCameraPermission();
+            view.requestCameraPermissions();
         }
     }
 
@@ -54,7 +53,7 @@ public class MainPresenter extends BasePresenter<MainActivity> implements IMainP
                             if (permissionResult.getGrantResult()) {
                                 startTracking();
                             } else {
-                                requestCameraPermission();
+                                view.requestCameraPermissions();
                             }
                         }, Timber::e);
 
@@ -69,10 +68,6 @@ public class MainPresenter extends BasePresenter<MainActivity> implements IMainP
                 view.handleGooglePlayServiceUnavailable(availabilityCode);
             }
         }
-    }
-
-    private void requestCameraPermission() {
-        permissionUtils.requestPermission(view, PermissionUtils.CAMERA_PERMISSION_REQUEST_CODE, PermissionUtils.CAMERA_PERMISSION);
     }
 
     private void startTracking() {
