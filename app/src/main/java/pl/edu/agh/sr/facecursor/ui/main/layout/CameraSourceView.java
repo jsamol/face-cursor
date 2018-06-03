@@ -94,7 +94,7 @@ public class CameraSourceView extends ViewGroup {
         if (surfaceView != null && surfaceHolderCallback != null) {
             surfaceHolderCallback.bindCameraSourceView(this);
             surfaceView.getHolder().addCallback(surfaceHolderCallback);
-            addView(surfaceView);
+            addView(surfaceView, 0);
         }
     }
 
