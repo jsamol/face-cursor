@@ -9,12 +9,13 @@ import com.google.android.gms.vision.face.Face;
 import java.util.Locale;
 
 import pl.edu.agh.sr.facecursor.ui.main.layout.GraphicOverlay;
+import timber.log.Timber;
 
 public class FaceGraphic extends GraphicOverlay.Graphic {
     private static final float FACE_POSITION_RADIUS = 10.0f;
     private static final float ID_TEXT_SIZE = 40.0f;
-    private static final float ID_Y_OFFSET = 50.0f;
-    private static final float ID_X_OFFSET = -50.0f;
+    private static final float ID_X_OFFSET = 50.0f;
+    private static final float ID_Y_OFFSET = -50.0f;
     private static final float BOX_STROKE_WIDTH = 5.0f;
 
     private static final int COLOR_CHOICES[] = {
@@ -27,7 +28,7 @@ public class FaceGraphic extends GraphicOverlay.Graphic {
             Color.YELLOW
     };
 
-    private static int mCurrentColorIndex = 0;
+    private static int mCurrentColorIndex = -1;
 
     private Paint mFacePositionPaint;
     private Paint mIdPaint;
@@ -66,10 +67,11 @@ public class FaceGraphic extends GraphicOverlay.Graphic {
         float x = translateX(face.getPosition().x + face.getWidth() / 2);
         float y = translateY(face.getPosition().y + face.getHeight() / 2);
         canvas.drawCircle(x, y, FACE_POSITION_RADIUS, mFacePositionPaint);
-        canvas.drawText("id: " + mFaceId, x + ID_X_OFFSET, y + ID_Y_OFFSET, mIdPaint);
-        canvas.drawText("happiness: " + String.format(Locale.getDefault(), "%.2f", face.getIsSmilingProbability()), x - ID_X_OFFSET, y - ID_Y_OFFSET, mIdPaint);
-        canvas.drawText("right eye: " + String.format(Locale.getDefault(), "%.2f", face.getIsRightEyeOpenProbability()), x - ID_X_OFFSET, y - ID_Y_OFFSET, mIdPaint);
-        canvas.drawText("left eye: " + String.format(Locale.getDefault(), "%.2f", face.getIsLeftEyeOpenProbability()), x - ID_X_OFFSET, y - ID_Y_OFFSET, mIdPaint);
+
+        String idText = String.format(Locale.getDefault(), "id: %d", mFaceId);
+        String happinessText = String.format(Locale.getDefault(), "happiness: %.2f", face.getIsSmilingProbability());
+        String rightEyeText = String.format(Locale.getDefault(), "right eye: %.2f", face.getIsRightEyeOpenProbability());
+        String leftEyeText = String.format(Locale.getDefault(), "left eye: %.2f", face.getIsLeftEyeOpenProbability());
 
         float xOffset = scaleX(face.getWidth() / 2.0f);
         float yOffset = scaleY(face.getHeight() / 2.0f);
@@ -77,6 +79,17 @@ public class FaceGraphic extends GraphicOverlay.Graphic {
         float top = y - yOffset;
         float right = x + xOffset;
         float bottom = y + yOffset;
+
+        canvas.drawText(idText, left + ID_X_OFFSET, bottom + 3 * ID_Y_OFFSET, mIdPaint);
+        Timber.d(idText);
+
+        Timber.d(happinessText);
+
+        canvas.drawText(rightEyeText, left + ID_X_OFFSET, bottom + 2 * ID_Y_OFFSET, mIdPaint);
+        Timber.d(rightEyeText);
+
+        canvas.drawText(leftEyeText, left + ID_X_OFFSET, bottom + ID_Y_OFFSET, mIdPaint);
+        Timber.d(leftEyeText);
 
         canvas.drawRect(left, top, right, bottom, mBoxPaint);
     }
