@@ -3,14 +3,17 @@ package pl.edu.agh.sr.facecursor.utils.facetracker;
 import com.google.android.gms.vision.face.Face;
 
 import pl.edu.agh.sr.facecursor.ui.main.layout.GraphicOverlay;
+import pl.edu.agh.sr.facecursor.utils.NetworkUtils;
 
 public class FaceUpdateHandler {
 
+    private NetworkUtils mNetworkUtils;
     private GraphicOverlay mGraphicOverlay;
     private FaceGraphic mFaceGraphic;
     private Face mFace;
 
-    public FaceUpdateHandler(GraphicOverlay mGraphicOverlay, FaceGraphic mFaceGraphic) {
+    public FaceUpdateHandler(NetworkUtils networkUtils, GraphicOverlay mGraphicOverlay, FaceGraphic mFaceGraphic) {
+        this.mNetworkUtils = networkUtils;
         this.mGraphicOverlay = mGraphicOverlay;
         this.mFaceGraphic = mFaceGraphic;
     }

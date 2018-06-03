@@ -78,7 +78,7 @@ public class MainActivityModule extends ActivityModule<MainActivity> {
 
     @Provides
     MultiProcessor.Factory<Face> provideFactory(GraphicOverlay graphicOverlay) {
-        return new FaceTrackerFactory(graphicOverlay);
+        return new FaceTrackerFactory(activity, graphicOverlay);
     }
 
     @Provides

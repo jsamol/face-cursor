@@ -11,6 +11,8 @@ import pl.edu.agh.sr.facecursor.dagger.activity.ActivityModule;
 import pl.edu.agh.sr.facecursor.dagger.app.AppComponent;
 import pl.edu.agh.sr.facecursor.dagger.app.AppModule;
 import pl.edu.agh.sr.facecursor.dagger.app.DaggerAppComponent;
+import pl.edu.agh.sr.facecursor.dagger.utils.UtilComponent;
+import pl.edu.agh.sr.facecursor.dagger.utils.UtilModule;
 import pl.edu.agh.sr.facecursor.ui.BaseActivity;
 import timber.log.Timber;
 
@@ -18,6 +20,9 @@ public class FaceCursorApp extends Application {
 
     @Inject
     Map<Class<? extends BaseActivity>, ActivityComponent.Builder> activityComponentBuilders;
+
+    @Inject
+    Map<Class, UtilComponent.Builder> utilComponentBuilders;
 
     private AppComponent mAppComponent;
 
@@ -39,5 +44,9 @@ public class FaceCursorApp extends Application {
 
     public ActivityComponent.Builder<ActivityModule, ActivityComponent> getActivityComponentBuilder(Class<? extends BaseActivity> activityClass) {
         return activityComponentBuilders.containsKey(activityClass) ? activityComponentBuilders.get(activityClass) : null;
+    }
+
+    public UtilComponent.Builder<UtilModule, UtilComponent> getUtilComponentBuilder(Class utilClass) {
+        return utilComponentBuilders.containsKey(utilClass) ? utilComponentBuilders.get(utilClass) : null;
     }
 }
