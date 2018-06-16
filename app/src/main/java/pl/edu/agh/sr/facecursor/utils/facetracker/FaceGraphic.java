@@ -38,6 +38,9 @@ public class FaceGraphic extends GraphicOverlay.Graphic {
     private int mFaceId;
     private float mFaceHappiness;
 
+    private float firstX;
+    private float firstY;
+
     public FaceGraphic(GraphicOverlay mGraphicOverlay) {
         super(mGraphicOverlay);
 
@@ -92,6 +95,9 @@ public class FaceGraphic extends GraphicOverlay.Graphic {
 //        Timber.d(leftEyeText);
 
         canvas.drawRect(left, top, right, bottom, mBoxPaint);
+
+        canvas.drawLine(firstX, 0, firstX, mGraphicOverlay.getHeight(), mIdPaint);
+        canvas.drawLine(0, firstY, mGraphicOverlay.getWidth(), firstY, mIdPaint);
     }
 
     void setId(int id) {
@@ -101,5 +107,10 @@ public class FaceGraphic extends GraphicOverlay.Graphic {
     void updateFace(Face face) {
         mFace = face;
         postInvalidate();
+    }
+
+    public void setFirstPosition(int firstX, int firstY) {
+        this.firstX = translateX(firstX);
+        this.firstY = translateY(firstY);
     }
 }

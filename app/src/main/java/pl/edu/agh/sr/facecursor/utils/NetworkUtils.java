@@ -44,8 +44,7 @@ public class NetworkUtils {
         if(x == 0 && y == 0 && click == 0)
             return;
         Timber.d("x = " + x + ", y = " + y + ", click = " + click);
-        x = y = 0;
-        byte[] buf = (x +  " " + y + " " + click).getBytes();
+        byte[] buf = (x / 5 +  " " + y / 5 + " " + click).getBytes();
         DatagramPacket packet = new DatagramPacket(buf, buf.length, address, PORT);
 
         try {

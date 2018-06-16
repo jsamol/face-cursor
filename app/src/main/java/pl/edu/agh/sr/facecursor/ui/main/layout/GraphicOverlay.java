@@ -83,7 +83,7 @@ public class GraphicOverlay extends View {
     }
 
     public static abstract class Graphic {
-        private GraphicOverlay mGraphicOverlay;
+        protected GraphicOverlay mGraphicOverlay;
 
         public Graphic(GraphicOverlay mGraphicOverlay) {
             this.mGraphicOverlay = mGraphicOverlay;
