@@ -81,15 +81,15 @@ public class FaceGraphic extends GraphicOverlay.Graphic {
         float bottom = y + yOffset;
 
         canvas.drawText(idText, left + ID_X_OFFSET, bottom + 3 * ID_Y_OFFSET, mIdPaint);
-        Timber.d(idText);
+//        Timber.d(idText);
 
-        Timber.d(happinessText);
+//        Timber.d(happinessText);
 
         canvas.drawText(rightEyeText, left + ID_X_OFFSET, bottom + 2 * ID_Y_OFFSET, mIdPaint);
-        Timber.d(rightEyeText);
+//        Timber.d(rightEyeText);
 
         canvas.drawText(leftEyeText, left + ID_X_OFFSET, bottom + ID_Y_OFFSET, mIdPaint);
-        Timber.d(leftEyeText);
+//        Timber.d(leftEyeText);
 
         canvas.drawRect(left, top, right, bottom, mBoxPaint);
     }
